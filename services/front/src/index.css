@@ -1,0 +1,56 @@
+h1,
+h2 {
+  margin: 0;
+}
+
+body {
+  background: #f0f6f9;
+}
+
+/* App style */
+
+.autoPaddingContainer {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) minmax(auto, 800px) minmax(7rem, 1fr);
+}
+
+.autoPaddingContainer > * {
+  grid-column: 2;
+}
+
+/* DirectoryCreator */
+
+.directoryCreatorContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 700px) {
+  .directoryCreatorContainer {
+    grid-template-columns: 1fr 1fr auto;
+  }
+}
+
+/* DirectoryHierarchy */
+
+.directoryNodeActionIcon {
+  color: #c4cbcd;
+  opacity: 0;
+  transition:
+    opacity 0.3s,
+    color 0.3s;
+  cursor: pointer;
+}
+
+.directoryNode:hover > .directoryNodeActionIcon {
+  opacity: 1;
+}
+
+.directoryNodeActionIcon.edit:hover {
+  color: #226196;
+}
+
+.directoryNodeActionIcon.delete:hover {
+  color: #d53d3d;
+}

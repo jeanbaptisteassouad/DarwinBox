@@ -1,0 +1,18 @@
+[package]
+name = "back"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = { version = "0.7.7", features = ["http2", "macros", "ws"] }
+dotenv = "0.15.0"
+tokio-tungstenite = "0.23"
+serde = { version = "1.0.214", features = ["derive"] }
+serde_json = "1.0.132"
+sqlx = { version = "0.8.2", features = ["postgres", "runtime-tokio"] }
+tokio = { version = "1.41.0", features = ["full"] }
+tower = { version = "0.5.1", features = ["full"] }
+tower-http = { version = "0.6.1", features = ["full"] }
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+anyhow = "1.0.93"

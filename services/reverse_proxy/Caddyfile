@@ -1,0 +1,4 @@
+http://localhost {
+    reverse_proxy /api/* back
+    reverse_proxy front
+}

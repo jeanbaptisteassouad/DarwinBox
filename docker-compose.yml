@@ -1,0 +1,36 @@
+services:
+  database:
+    image: postgres:17-alpine
+    environment:
+        - POSTGRES_PASSWORD=postgres
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  back:
+    build:
+      context: services/back
+    environment:
+      - DATABASE_URL=postgres://database?dbname=darwin_box&user=postgres&password=postgres
+      - AXUM_TOKIO_BIND_ADDRESS=0.0.0.0:80
+    restart: always
+
+  front:
+    build:
+      context: services/front
+      args:
+        # API origin used by the browser.
+        - VITE_API_ORIGIN=http://localhost:${DARWINBOX_PORT:?error}
+        # Websocket origin used by the browser.
+        - VITE_WS_ORIGIN=ws://localhost:${DARWINBOX_PORT:?error}
+    restart: always
+
+  reverse_proxy:
+    build:
+      context: services/reverse_proxy
+    ports:
+      - ${DARWINBOX_PORT:?error}:80
+    restart: always
+
+volumes:
+  postgres_data:
