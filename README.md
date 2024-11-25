@@ -6,7 +6,7 @@ DarwinBox is a Dropbox-like directory management system.
 
 This system allows you to create, rename, delete, and list directories with infinite nesting and real-time updates.
 
-## Local deployment
+## Local deployment with docker compose
 
 Use Docker Compose to run the app locally.
 
@@ -26,7 +26,33 @@ And run all the database migrations to finish its configuration.
 docker compose exec back /app/sqlx migrate run --source /app/migrations
 ```
 
-The app is fully functional and running on http://localhost:7777.
+The app is fully functional and running on http://localhost.
+
+## Local deployment with minikube
+
+```shell
+# Build Docker container images.
+docker compose build
+
+# Start Minikube and enable ingress.
+minikube start
+minikube addons enable ingress
+
+# Load local Docker image into Minikube.
+minikube image load darwinbox-back
+minikube image load darwinbox-front
+
+# Apply Kubernetes manifests to the cluster.
+kubectl apply -f k8s
+
+# Run PostgreSQL migrations inside one of 'darwinbox-back' pod.
+kubectl exec "$(kubectl get pods | grep darwinbox-back | head -n 1 | awk '{print $1}')" -- /app/sqlx migrate run --source /app/migrations
+
+# Create a tunnel to access the app.
+minikube tunnel
+```
+
+The app is fully functional and running on http://localhost.
 
 ## Global Design
 

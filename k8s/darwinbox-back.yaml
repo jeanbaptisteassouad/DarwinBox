@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: darwinbox-back
+  labels:
+    app: darwinbox-back
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: darwinbox-back
+  template:
+    metadata:
+      labels:
+        app: darwinbox-back
+    spec:
+      containers:
+      - name: darwinbox-back
+        image: darwinbox-back
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
+        env:
+        - name: DATABASE_URL
+          value: postgres://postgres?dbname=darwin_box&user=postgres&password=postgres
+        - name: AXUM_TOKIO_BIND_ADDRESS
+          value: 0.0.0.0:80
+

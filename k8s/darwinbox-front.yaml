@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: darwinbox-front
+  labels:
+    app: darwinbox-front
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: darwinbox-front
+  template:
+    metadata:
+      labels:
+        app: darwinbox-front
+    spec:
+      containers:
+      - name: darwinbox-front
+        image: darwinbox-front
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80

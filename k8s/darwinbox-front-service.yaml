@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: darwinbox-front-service
+spec:
+  selector:
+    app: darwinbox-front
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: ClusterIP
